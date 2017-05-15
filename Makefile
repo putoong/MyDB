@@ -2,7 +2,6 @@
 # DIR_SRC = ./test 
 DIR_SRC = .
 DIR_INC = ./Catalog/headers
-DIR_OBJ = ./obj
 DIR_BIN = ./bin
 
 SRC = $(shell find . -name "*.cc")
@@ -15,6 +14,8 @@ CC = g++
 CFLAGS = -g -Wall -I${DIR_INC}
 
 ${TGT} : ${OBJ}
+	@echo ${SRC}
+	@echo ${OBJ}
 	$(CC) $(CFLAGS) -o $@ $^
 
 ${OBJ} : %.o : %.cc
@@ -24,3 +25,4 @@ ${OBJ} : %.o : %.cc
 
 clean: 
 	rm -fr $(TGT)
+	find -type f -name '*.o' -delete
