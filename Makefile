@@ -1,7 +1,7 @@
-# DIR_SRC = ./Catalog/source ./Test 
-# DIR_SRC = ./test 
 DIR_SRC = .
-DIR_INC = ./Catalog/headers
+DIR_INC = $(sort $(dir $(wildcard ./**/headers/*/)))
+INC_PARAM = $(foreach dir, $(DIR_INC), -I$(dir))
+# DIR_INC = ./Catalog/headers MyDB_BufferMgr/headers
 DIR_BIN = ./bin
 
 SRC = $(shell find . -name "*.cc")
@@ -11,10 +11,9 @@ TARGET = test
 TGT = ${DIR_BIN}/${TARGET}
 
 CC = g++
-CFLAGS = -g -Wall -I${DIR_INC}
+CFLAGS = -g -std=c++0x -Wall ${INC_PARAM}
 
 ${TGT} : ${OBJ}
-	@echo ${SRC}
 	@echo ${OBJ}
 	$(CC) $(CFLAGS) -o $@ $^
 
